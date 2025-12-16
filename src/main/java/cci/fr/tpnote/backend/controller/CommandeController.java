@@ -1,5 +1,6 @@
 package cci.fr.tpnote.backend.controller;
 
+import cci.fr.tpnote.backend.dto.CommandeDTO;
 import cci.fr.tpnote.backend.repository.CommandeRepository;
 import cci.fr.tpnote.backend.service.CommandeService;
 import cci.fr.tpnote.data.commande.Commande;
@@ -23,29 +24,30 @@ public class CommandeController {
 
     // POST /commandes — créer une commande vide
     @PostMapping
-    public Commande creerCommande() {
-        return repository.save(new Commande(null));
+    public CommandeDTO creerCommande() {
+        Commande c = repository.save(new Commande(null));
+        return new CommandeDTO(
+                c.getId(),
+                c.getStatut().name(),
+                c.getTotal()
+        );
     }
 
-    // GET /commandes — liste des commandes
+    // GET /commandes — liste des commandes (DTO)
     @GetMapping
-    public List<Commande> getCommandes() {
-        return repository.findAll();
+    public List<CommandeDTO> getCommandes() {
+        return repository.findAll().stream()
+                .map(c -> new CommandeDTO(
+                        c.getId(),
+                        c.getStatut().name(),
+                        c.getTotal()
+                ))
+                .toList();
     }
 
-    // GET /commandes/{id} — détail d’une commande
-    @GetMapping("/{id}")
-    public ResponseEntity<Commande> getCommande(@PathVariable Long id) {
-        Commande commande = repository.findById(id);
-        if (commande == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(commande);
-    }
-
-    // PUT /commandes/{id}/statut — changement de statut (JSON)
+    // PUT /commandes/{id}/statut — changement de statut
     @PutMapping("/{id}/statut")
-    public ResponseEntity<Commande> changerStatut(
+    public ResponseEntity<CommandeDTO> changerStatut(
             @PathVariable Long id,
             @RequestBody StatutRequest request) {
 
@@ -55,6 +57,13 @@ public class CommandeController {
         }
 
         service.mettreAJourStatut(commande, request.getStatut());
-        return ResponseEntity.ok(commande);
+
+        return ResponseEntity.ok(
+                new CommandeDTO(
+                        commande.getId(),
+                        commande.getStatut().name(),
+                        commande.getTotal()
+                )
+        );
     }
 }
