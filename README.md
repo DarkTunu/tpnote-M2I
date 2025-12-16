@@ -7,35 +7,32 @@
 Ce projet consiste à développer une application de gestion de commandes pour le café Le Petit Grain.
 L’application permet au personnel du café de consulter les produits, suivre les commandes existantes et mettre à jour leur statut.
 
-L’architecture repose sur :
-
-• un Backend REST Spring Boot
-
-• un Client JavaFX consommant l’API via HTTP
-
-• un stockage en mémoire (sans base de données)
+#### L’architecture repose sur :
+- un Backend REST Spring Boot
+- un Client JavaFX consommant l’API via HTTP
+- un stockage en mémoire (sans base de données)
 
 ### Architecture technique
-• Backend (Spring Boot)
-• API REST
-• Repository en mémoire
-• Logique métier centralisée dans des services
-• Utilisation de DTO pour exposer les données au client
+- Backend (Spring Boot)
+- API REST
+- Repository en mémoire
+- Logique métier centralisée dans des services
+- Utilisation de DTO pour exposer les données au client
 
 ### Endpoints principaux :
-• GET /produits
-• GET /produits/{id}
-• GET /commandes
-• GET /commandes/{id}
-• POST /commandes
-• PUT /commandes/{id}/statut
-• Client (JavaFX)
+- GET /produits
+- GET /produits/{id}
+- GET /commandes
+- GET /commandes/{id}
+- POST /commandes
+- PUT /commandes/{id}/statut
+- Client (JavaFX)
 
 ### Le client JavaFX permet :
-• d’afficher la liste des produits (nom, prix)
-• d’afficher la liste des commandes (id, total, statut)
-• de consulter le détail d’une commande
-• de mettre à jour le statut d’une commande
+- d’afficher la liste des produits (nom, prix)
+- d’afficher la liste des commandes (id, total, statut)
+- de consulter le détail d’une commande
+- de mettre à jour le statut d’une commande
 
 ### Choix d’implémentation de l’interface
 
