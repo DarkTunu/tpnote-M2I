@@ -73,3 +73,4 @@ mvn spring-boot:run
 mvn javafx:run
 
 ### Captures d’écran
+![Interface JavaFX – Produits et Commandes](screenshots/Capture_Ecran_UI.png)
