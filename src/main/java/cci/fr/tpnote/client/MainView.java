@@ -18,7 +18,7 @@ public class MainView {
         TableView<ProduitDTO> tableProduitDTOs = new TableView<>();
 
         TableColumn<ProduitDTO, String> colNom =
-                new TableColumn<>("ProduitDTO");
+                new TableColumn<>("Produit");
         colNom.setCellValueFactory(p ->
                 new javafx.beans.property.SimpleStringProperty(
                         p.getValue().getNom()
