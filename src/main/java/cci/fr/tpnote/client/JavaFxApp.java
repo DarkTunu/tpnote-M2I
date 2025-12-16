@@ -7,6 +7,7 @@ public class JavaFxApp extends Application {
 
     @Override
     public void start(Stage stage) {
+        // Rendu de la fenetre JavaFX
         new MainView().start(stage);
     }
 

@@ -72,7 +72,6 @@ public class CommandeController {
         );
     }
 
-
     // PUT /commandes/{id}/statut — changement de statut
     @PutMapping("/{id}/statut")
     public ResponseEntity<CommandeDTO> changerStatut(
