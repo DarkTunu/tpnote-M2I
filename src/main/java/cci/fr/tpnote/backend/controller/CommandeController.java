@@ -1,6 +1,8 @@
 package cci.fr.tpnote.backend.controller;
 
 import cci.fr.tpnote.backend.dto.CommandeDTO;
+import cci.fr.tpnote.backend.dto.CommandeDetailDTO;
+import cci.fr.tpnote.backend.dto.LigneCommandeDTO;
 import cci.fr.tpnote.backend.repository.CommandeRepository;
 import cci.fr.tpnote.backend.service.CommandeService;
 import cci.fr.tpnote.data.commande.Commande;
@@ -44,6 +46,32 @@ public class CommandeController {
                 ))
                 .toList();
     }
+
+    // GET /commandes/{id} — détail d’une commande
+    @GetMapping("/{id}")
+    public ResponseEntity<CommandeDetailDTO> getCommandeById(@PathVariable Long id) {
+
+        Commande c = repository.findById(id);
+        if (c == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(
+                new CommandeDetailDTO(
+                        c.getId(),
+                        c.getStatut(),
+                        c.getTotal(),
+                        c.getLignes().stream()
+                                .map(l -> new LigneCommandeDTO(
+                                        l.getProduit().getNom(),
+                                        l.getQuantite(),
+                                        l.getProduit().getPrix()
+                                ))
+                                .toList()
+                )
+        );
+    }
+
 
     // PUT /commandes/{id}/statut — changement de statut
     @PutMapping("/{id}/statut")
